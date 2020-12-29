@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Clue
   - Interact_Environment
+  - Static_Environment
   layers:
   - Default
   - TransparentFX
