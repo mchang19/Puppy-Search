@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
-        controller.center = new Vector3(0, 0.6f, 0); //Set the position so player walks on ground
+        controller.center = new Vector3(0, 0.65f, 0); //Set the position so player walks on ground
         controller.height = 0.2f;
     }
 
