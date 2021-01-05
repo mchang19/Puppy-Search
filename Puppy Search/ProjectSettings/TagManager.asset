@@ -9,6 +9,8 @@ TagManager:
   - Static_Environment
   - EmptyToFull
   - FullObject
+  - MakeVisible
+  - MakeInvisible
   layers:
   - Default
   - TransparentFX
