@@ -11,6 +11,8 @@ TagManager:
   - FullObject
   - MakeVisible
   - MakeInvisible
+  - Clue2
+  - Clue3
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Ground
   - Player
   - Walls
-  - 
+  - Footprints
   - 
   - 
   - 

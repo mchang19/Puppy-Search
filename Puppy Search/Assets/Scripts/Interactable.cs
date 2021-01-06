@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         dialogueBox.SetActive(false);
-        clueObject.SetActive(true);
+        clueObject.GetComponent<Renderer>().enabled = true;
         isClue = false;
         alreadyFull = false;
 
@@ -63,7 +63,7 @@ public class Interactable : MonoBehaviour
     //Check if the object player is interacting with is a "clue" for story progression
     private void ClueCheck(GameObject _clueCheck)
     {
-        if (_clueCheck.CompareTag("Clue"))
+        if (_clueCheck.CompareTag("Clue") || _clueCheck.CompareTag("Clue2"))
         {
             isClue = true;
         }
@@ -106,9 +106,6 @@ public class Interactable : MonoBehaviour
             fullObject.GetComponent<Renderer>().enabled = true;
         }
 
-        //Triggers dialogue box
-        dialogueBox.SetActive(true);
-
         //Checks if the object has been interacted with already to see which line of dialogue should be displayed
         if (alreadyFull && !isClue)
         {
@@ -118,6 +115,12 @@ public class Interactable : MonoBehaviour
         {
             dialogueText.text = dialogue;
             alreadyFull = true;
+        }
+
+        //Triggers dialogue box
+        if (dialogueText.text != "")
+        {
+            dialogueBox.SetActive(true);
         }
 
         yield return new WaitForSeconds(seconds);
