@@ -2,7 +2,34 @@ fileFormatVersion: 2
 guid: 9a8513301460a664c8df3e77ba0563f3
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1671072074226298802
+    second: Paws|CubeAction.001
+  - first:
+      74: 4785410295237713378
+    second: Paws|DoorClose
+  - first:
+      74: -3302013128638938933
+    second: Paws|DoorOpen
+  - first:
+      74: -1662543091238651578
+    second: Paws|PawsAction
+  - first:
+      74: 2259860807565522682
+    second: Paws|PawsAction.001
+  - first:
+      74: -1260048011820758146
+    second: Paws|PawsAction.002
+  - first:
+      74: 5327116707511483522
+    second: Paws|PawsAction.003
+  - first:
+      74: 5783511362517321616
+    second: Paws|PawsAction.004
+  - first:
+      74: -6408608124174850985
+    second: Paws|PawsAction.005
   externalObjects:
   - first:
       type: UnityEngine:Material

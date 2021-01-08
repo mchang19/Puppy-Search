@@ -9,14 +9,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 3.5f;
-    private float jumpHeight = 1.0f;
     private float gravityValue = -15f;
+
+    private Animator playerAnimator;
 
     private void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
         controller.center = new Vector3(0, 0.65f, 0); //Set the position so player walks on ground
         controller.height = 0.2f;
+
+        playerAnimator = GetComponent<Animator>();
+        playerAnimator.SetBool("isMoving", false);
     }
 
     void Update()
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
+            playerAnimator.SetBool("isMoving", false);
         }
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -33,12 +38,7 @@ public class PlayerMovement : MonoBehaviour
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-        }
-
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            playerAnimator.SetBool("isMoving", true);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
