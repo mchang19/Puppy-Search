@@ -20,7 +20,7 @@ public class Interactable : MonoBehaviour
     public bool EmptyToFull; //if the object is a container that needs to be visibly "filled"
     public bool alreadyFull; //checks if the object has already been "filled", stops duplicate dialogue
 
-    private float seconds = 2.0f;
+    private float seconds = 3.0f;
 
     void Start()
     {
