@@ -7,6 +7,7 @@ using TMPro;
 public class Interactable : MonoBehaviour
 {
     public GameObject dialogueBox;
+
     public GameObject clueObject; //Only drag in the object this script is attached to if it is a clue
     public GameObject emptytofullObject; //Drag in object that needs to be "filled" by the fullObject (eg. empty dog bowl)
     public GameObject fullObject; //Drag in object that will "fill" the empty asset (eg. dog food plane for an empty dog bowl)
@@ -15,10 +16,11 @@ public class Interactable : MonoBehaviour
     public string dialogue; //Dialogue displayed for first interaction
     public string dialogue_filled; //Alternative dialogue displayed if an object is tagged "EmptytoFull" and player has already interacted with it
 
-    public bool playerInRange; //if the player is close enough to trigger interaction or not
+    public bool playerInRange = false; //if the player is close enough to trigger interaction or not
     public bool isClue; //if the object is a "clue" to progress the story or not
     public bool EmptyToFull; //if the object is a container that needs to be visibly "filled"
     public bool alreadyFull; //checks if the object has already been "filled", stops duplicate dialogue
+    public bool goDialogue = false;
 
     private float seconds = 3.0f;
 
@@ -32,12 +34,30 @@ public class Interactable : MonoBehaviour
         fullObject.GetComponent<Renderer>().enabled = false;
     }
 
-    private void Update()
+    public void Update()
+    {
+        if (playerInRange)
+        {
+            StartDialogue();
+        }
+    }
+
+    public void StartDialogue()
     {
         if (Input.GetKeyDown(KeyCode.E) && playerInRange)
         {
-          StartCoroutine(RemoveDialogue(seconds));
+            goDialogue = true;
+            StartCoroutine(RemoveDialogue(seconds));
         }
+        else
+        {
+            StopDialogue();
+        }
+    }
+
+    public void StopDialogue()
+    {
+        goDialogue = false;
     }
 
     //Check if player is within range of interaction
@@ -88,50 +108,53 @@ public class Interactable : MonoBehaviour
 
     public IEnumerator RemoveDialogue(float seconds)
     {
-        ClueCheck(clueObject);
-
-        //Have the player "pick up" the clue, otherwise check if the object is a container needing to be filled
-        if (isClue)
+        while (goDialogue)
         {
-            clueObject.GetComponent<Renderer>().enabled = false;
-        }
-        else
-        {
-            FillCheck(emptytofullObject);
-        }
+            ClueCheck(clueObject);
 
-        //If object is an empty container, make the filling visible
-        if (EmptyToFull)
-        {
-            fullObject.GetComponent<Renderer>().enabled = true;
-        }
+            //Have the player "pick up" the clue, otherwise check if the object is a container needing to be filled
+            if (isClue)
+            {
+                clueObject.GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                FillCheck(emptytofullObject);
+            }
 
-        //Checks if the object has been interacted with already to see which line of dialogue should be displayed
-        if (alreadyFull && !isClue)
-        {
-            dialogueText.text = dialogue_filled;
-        }
-        else
-        {
-            dialogueText.text = dialogue;
-            alreadyFull = true;
-        }
+            //If object is an empty container, make the filling visible
+            if (EmptyToFull)
+            {
+                fullObject.GetComponent<Renderer>().enabled = true;
+            }
 
-        //Triggers dialogue box
-        if (dialogueText.text != "")
-        {
-            dialogueBox.SetActive(true);
+            //Checks if the object has been interacted with already to see which line of dialogue should be displayed
+            if (alreadyFull && !isClue)
+            {
+                dialogueText.text = dialogue_filled;
+            }
+            else
+            {
+                dialogueText.text = dialogue;
+                alreadyFull = true;
+            }
+
+            //Triggers dialogue box
+            if (dialogueText.text != "")
+            {
+                dialogueBox.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(seconds);
+
+            dialogueBox.SetActive(false);
+            dialogueText.text = "";
+
+            if (isClue)
+            {
+                clueObject.SetActive(false);
+            }
         }
-
-        yield return new WaitForSeconds(seconds);
-        Debug.Log($"IEnumerator is working");
-
-        dialogueBox.SetActive(false);
-        dialogueText.text = "";
-
-        if (isClue)
-        {
-            clueObject.SetActive(false);
-        }
+       
     }
 }

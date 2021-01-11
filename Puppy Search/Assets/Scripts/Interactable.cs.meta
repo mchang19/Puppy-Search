@@ -3,7 +3,16 @@ guid: 0d4cf7689723b38409052bab964147e2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dialogueBox: {instanceID: 0}
+  - interactButton: {fileID: 2523823576312839002, guid: 01056a307b72b9141ae95e514325e3ad,
+      type: 3}
+  - pressText: {fileID: 4514801053126505529, guid: 39081d3704af6814cbadb67003e4582f,
+      type: 3}
+  - clueObject: {instanceID: 0}
+  - emptytofullObject: {instanceID: 0}
+  - fullObject: {instanceID: 0}
+  - dialogueText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
